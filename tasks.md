@@ -4,7 +4,7 @@
 2. Dodati paginaciju ili infinite scroll za učitavanje podataka dio po dio, te dodati
 opciju za dohvaćanje svih podataka
 
-3. Prilikom svakog učitavanja podataka vizualno prikazati nekim loaderom
+<!-- 3. Prilikom svakog učitavanja podataka vizualno prikazati nekim loaderom -->
 
 4. Klikom na ime pokemona otvoriti novu stranicu s detaljima tog pokemona. Nije
 potrebno ispisati sve informacije. Staviti sliku, ako nema nijedne slike staviti

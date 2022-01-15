@@ -7,17 +7,43 @@ import PokemonThumbnail from '../PokemonThumbnail/PokemonThumbnail';
 
 import './styles.scss';
 
-const loaderCSS = css`position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);`;
+const loaderCSS = css`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
-  const [loadMore, setLoadMore] = useState(
-    'https://pokeapi.co/api/v2/pokemon?offset=20&limit=20'
-  );
+  const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon');
   const [isLoading, setIsLoading] = useState(false);
-  const [spinnerColor, setSpinnerColor] = useState('#ffffff');
+  const [spinnerColor, setSpinnerColor] = useState('#3b4cca');
 
   const getAllPokemons = async () => {
+    const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=100'; // limit=1118 to fetch all of them 
+
+    setIsLoading(true);
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    console.log(data, 'data svi pokemoni');
+
+    const configAllPokemons = (results) => {
+      results.forEach(async (pokemon) => {
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+        );
+        const data = await res.json();
+        setPokemonList((prevPokemons) => [...prevPokemons, data]);
+      });
+    };
+    configAllPokemons(data.results);
+    setIsLoading(false);
+  };
+
+  const getPokemons = async () => {
     const url = 'https://pokeapi.co/api/v2/pokemon';
 
     setIsLoading(true);
@@ -27,26 +53,26 @@ const PokemonList = () => {
 
     setLoadMore(data.next);
 
-    function configPokemonObject(results) {
+    const configPokemonObject = (results) => {
       results.forEach(async (pokemon) => {
         const res = await fetch(`${url}/${pokemon.name}`);
         const data = await res.json();
-        setPokemonList((currentList) => [...currentList, data]);
+        setPokemonList((prevPokemons) => [...prevPokemons, data]);
         await pokemonList.sort((a, b) => a.id - b.id);
       });
-    }
+    };
     configPokemonObject(data.results);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    getAllPokemons();
+    getPokemons();
   }, []);
 
   return (
     <>
       <BounceLoader
-        color={'#3b4cca'}
+        color={spinnerColor}
         loading={isLoading}
         size={150}
         css={loaderCSS}
@@ -64,7 +90,10 @@ const PokemonList = () => {
               />
             ))}
           </div>
-          <Button onClick={() => getAllPokemons()}>Load more</Button>
+        </div>
+        <div className="buttons">
+          <Button onClick={() => getPokemons()}>Load more</Button>
+          <Button onClick={() => getAllPokemons()}>Get All Pokemons</Button>
         </div>
       </div>
     </>
