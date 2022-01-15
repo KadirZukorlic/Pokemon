@@ -1,5 +1,5 @@
-1. Napraviti web stranicu te dohvatiti i prikazati listu pokemona s API-ja
-(https://pokeapi.co/).
+<!-- 1. Napraviti web stranicu te dohvatiti i prikazati listu pokemona s API-ja
+(https://pokeapi.co/). -->
 
 2. Dodati paginaciju ili infinite scroll za učitavanje podataka dio po dio, te dodati
 opciju za dohvaćanje svih podataka

@@ -1,0 +1,46 @@
+.thumb__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+  margin: 0.5rem;
+  border: 1px solid #efefef;
+  border-radius: 0.2rem;
+  min-width: 160px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
+
+  text-transform: capitalize;
+
+  h3 {
+    margin-bottom: 0.2rem;
+  }
+
+  .number {
+    border-radius: 1rem;
+    padding: 0.2rem 0.4rem;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .detail__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .detail__wrapper button {
+    color: rgb(22, 22, 22);
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.185);
+  }
+}
