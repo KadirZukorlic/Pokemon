@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BounceLoader } from 'react-spinners';
 import { css } from '@emotion/react';
+import { Link } from 'react-router-dom';
 
 import Button from './../Button/Button';
 import PokemonThumbnail from '../PokemonThumbnail/PokemonThumbnail';
@@ -29,7 +30,6 @@ const PokemonList = () => {
     const res = await fetch(url);
     const data = await res.json();
 
-    console.log(data, 'data svi pokemoni');
 
     const configAllPokemons = (results) => {
       results.forEach(async (pokemon) => {
@@ -42,6 +42,8 @@ const PokemonList = () => {
     configAllPokemons(data.results);
     setIsLoading(false);
   };
+
+  // error handle with try catch
 
   const getPokemons = async () => {
     setIsLoading(true);
@@ -67,7 +69,6 @@ const PokemonList = () => {
     getPokemons();
   }, []);
 
-  console.log(pokemonList, 'poke lista');
 
   return (
     <>
@@ -81,13 +82,15 @@ const PokemonList = () => {
         <div className="pokemon__wrapper">
           <div className="pokemonList__wrapper">
             {pokemonList.map((pokemonStats, index) => (
-              <PokemonThumbnail
-                key={index}
-                id={pokemonStats.id}
-                image={pokemonStats.sprites.other.dream_world.front_default}
-                name={pokemonStats.name}
-                type={pokemonStats.types[0].type.name}
-              />
+              <Link to={`${pokemonStats.name}`}>
+                <PokemonThumbnail
+                  key={index}
+                  id={pokemonStats.id}
+                  image={pokemonStats.sprites.other.dream_world.front_default}
+                  name={pokemonStats.name}
+                  type={pokemonStats.types[0].type.name}
+                />
+              </Link>
             ))}
           </div>
         </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import './../../default.scss'
 
 //components
 import Header from '../../components/Header/Header';

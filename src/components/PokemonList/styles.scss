@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 90vh;
+    min-height: 100vh;
     padding: 3rem 0.5rem;
 
     .pokemon__wrapper {
@@ -18,6 +18,11 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
+      
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
     }
 
     .buttons {
