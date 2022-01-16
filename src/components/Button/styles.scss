@@ -1,7 +1,7 @@
 .btn {
   display: block;
   font-size: 1rem;
-  background: #ffde00;
+  background: #FFCC00;
   color: white;
   padding: .5rem 1.2rem;
   border: 0;
@@ -10,6 +10,6 @@
   cursor: pointer;
 
   &:hover {
-      background-color: #b3a125;
-  }
+      background-color: #FB1B1B;    
+    }
 }

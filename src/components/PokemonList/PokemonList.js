@@ -16,12 +16,13 @@ const loaderCSS = css`
 
 const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
+  const [baseUrl, setBaseUrl] = useState('https://pokeapi.co/api/v2/pokemon');
   const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon');
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerColor, setSpinnerColor] = useState('#3b4cca');
 
   const getAllPokemons = async () => {
-    const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=100'; // limit=1118 to fetch all of them 
+    const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=100'; // limit=1118 to fetch all of them
 
     setIsLoading(true);
 
@@ -32,11 +33,10 @@ const PokemonList = () => {
 
     const configAllPokemons = (results) => {
       results.forEach(async (pokemon) => {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-        );
+        const res = await fetch(`${baseUrl}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
+        await pokemonList.sort((a, b) => a.id - b.id);
       });
     };
     configAllPokemons(data.results);
@@ -44,8 +44,6 @@ const PokemonList = () => {
   };
 
   const getPokemons = async () => {
-    const url = 'https://pokeapi.co/api/v2/pokemon';
-
     setIsLoading(true);
 
     const res = await fetch(loadMore);
@@ -55,7 +53,7 @@ const PokemonList = () => {
 
     const configPokemonObject = (results) => {
       results.forEach(async (pokemon) => {
-        const res = await fetch(`${url}/${pokemon.name}`);
+        const res = await fetch(`${baseUrl}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
         await pokemonList.sort((a, b) => a.id - b.id);
@@ -68,6 +66,8 @@ const PokemonList = () => {
   useEffect(() => {
     getPokemons();
   }, []);
+
+  console.log(pokemonList, 'poke lista');
 
   return (
     <>
