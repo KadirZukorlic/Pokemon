@@ -6,6 +6,7 @@ import './styles.scss';
 const PokemonDetails = () => {
   const { pokemonName } = useParams();
   const [pokemon, setPokemon] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const GetPokemon = async () => {
     try {
@@ -17,6 +18,7 @@ const PokemonDetails = () => {
       setPokemon([data]);
     } catch (error) {
       // console.log(error)
+      setErrors(['Ooops, something went wrong!']);
     }
   };
 
@@ -27,19 +29,27 @@ const PokemonDetails = () => {
   }, []);
 
   return (
-    <div className="pokemonDetails__wrapper">
-      {pokemon.map((pokemonStats, index) => (
-        <div className="details__wrapper" key={index}>
-          <img
-            src={pokemonStats.sprites.other.dream_world.front_default}
-            alt="Pokemon details"
-          />
-          <h1>{pokemonStats.name}</h1>
-          <h3>Type: {pokemonStats.types[0].type.name}</h3>
-          <h3>Weight: {pokemonStats.weight}</h3>
-        </div>
-      ))}
-    </div>
+      <div className="pokemonDetails__wrapper">
+          {errors.length > 0 && (
+              <ul>
+                  {errors.map((error, index) => {
+                      return <li key={index}>{error}</li>
+                  })}
+              </ul>
+          )}
+
+        {pokemon.map((pokemonStats, index) => (
+          <div className="details__wrapper" key={index}>
+            <img
+              src={pokemonStats.sprites.other.dream_world.front_default}
+              alt="Pokemon details"
+            />
+            <h1>{pokemonStats.name}</h1>
+            <h3>Type: {pokemonStats.types[0].type.name}</h3>
+            <h3>Weight: {pokemonStats.weight}</h3>
+          </div>
+        ))}
+      </div>
   );
 };
 
