@@ -4,7 +4,7 @@ import "./styles.scss";
 
 const FormInput = ({ handleChange, label, ...otherProps }) => {
   return (
-    <div className="formRow">
+    <div className="form">
       {label && <label>{label}</label>}
 
       <input className="formInput" onChange={handleChange} {...otherProps} />

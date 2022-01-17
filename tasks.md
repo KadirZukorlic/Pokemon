@@ -6,9 +6,9 @@ opciju za dohvaćanje svih podataka -->
 
 <!-- 3. Prilikom svakog učitavanja podataka vizualno prikazati nekim loaderom -->
 
-4. Klikom na ime pokemona otvoriti novu stranicu s detaljima tog pokemona. Nije
+<!-- 4. Klikom na ime pokemona otvoriti novu stranicu s detaljima tog pokemona. Nije
 potrebno ispisati sve informacije. Staviti sliku, ako nema nijedne slike staviti
-placeholder. Plus je neki slider, galeriju ili slično za prikaz više slika
+placeholder. Plus je neki slider, galeriju ili slično za prikaz više slika -->
 
 5. Na stranici pokemona prikazati type pokemona, te na klik prikazati listu svih
 pokemona istog tipa u modalu
@@ -18,7 +18,7 @@ pokemona istog tipa u modalu
 7. Plus je na glavnu stranicu dodati filter po type ili ability, te prikazati samo
 odabrane pokemone
 
-8. Dodati search box po imenu pokemona.
+<!-- 8. Dodati search box po imenu pokemona. -->
 
 
 
