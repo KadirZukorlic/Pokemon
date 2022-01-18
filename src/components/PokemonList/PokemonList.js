@@ -23,13 +23,16 @@ const mapState = ({ search }) => ({
 const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [baseUrl, setBaseUrl] = useState('https://pokeapi.co/api/v2/pokemon');
-  const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon');
+  const [loadMore, setLoadMore] = useState(baseUrl);
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerColor, setSpinnerColor] = useState('#3b4cca');
+
   const { searchTerm } = useSelector(mapState);
 
+
+
   const getAllPokemons = async () => {
-    const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=100'; // limit=1118 to fetch all of them
+    const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=500'; // limit=1118 to fetch all of them
 
     setIsLoading(true);
 
@@ -74,6 +77,9 @@ const PokemonList = () => {
     getPokemons();
   }, []);
 
+
+
+
   return (
     <>
       <BounceLoader
@@ -96,9 +102,8 @@ const PokemonList = () => {
                 }
               })
               .map((pokemonStats, index) => (
-                <Link to={`${pokemonStats.name}`}>
+                <Link to={`${pokemonStats.name}`} key={index}>
                   <PokemonThumbnail
-                    key={index}
                     id={pokemonStats.id}
                     image={pokemonStats.sprites.other.dream_world.front_default}
                     name={pokemonStats.name}

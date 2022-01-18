@@ -10,8 +10,8 @@ opciju za dohvaćanje svih podataka -->
 potrebno ispisati sve informacije. Staviti sliku, ako nema nijedne slike staviti
 placeholder. Plus je neki slider, galeriju ili slično za prikaz više slika -->
 
-5. Na stranici pokemona prikazati type pokemona, te na klik prikazati listu svih
-pokemona istog tipa u modalu
+<!-- 5. Na stranici pokemona prikazati type pokemona, te na klik prikazati listu svih
+pokemona istog tipa u modalu -->
 
 6. Prilikom refresha stranice ostati na istom viewu
 

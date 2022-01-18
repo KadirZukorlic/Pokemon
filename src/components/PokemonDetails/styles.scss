@@ -30,3 +30,33 @@
     }
   }
 }
+
+.type__pokemons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  .type__details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    width: 170px;
+    height: 45px;
+    margin-bottom: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    text-transform: capitalize;
+
+    h3 {
+      margin-right: .4rem;
+    }
+  }
+}
