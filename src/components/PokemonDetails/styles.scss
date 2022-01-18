@@ -29,6 +29,14 @@
       height: auto;
     }
   }
+
+  .type__text {
+    cursor: pointer;
+    &:hover {
+      color: #FFCC00;
+    }
+  }
+
 }
 
 .type__pokemons {

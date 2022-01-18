@@ -104,7 +104,7 @@ const PokemonDetails = () => {
               onClick={() =>
                 onTypeClickHandler(pokemonStats.types[0].type.name)
               }
-              style={{ cursor: 'pointer' }}
+              className="type__text"
             >
               Type: {pokemonStats.types[0].type.name}
             </h3>
