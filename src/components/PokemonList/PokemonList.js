@@ -1,11 +1,15 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
 import { BounceLoader } from 'react-spinners';
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { pokemonTypes } from '../../data';
 
+// components
 import Button from './../Button/Button';
 import PokemonThumbnail from '../PokemonThumbnail/PokemonThumbnail';
+import FormSelect from '../FormSelect/SelectInput';
 
 import './styles.scss';
 
@@ -26,10 +30,9 @@ const PokemonList = () => {
   const [loadMore, setLoadMore] = useState(baseUrl);
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerColor, setSpinnerColor] = useState('#3b4cca');
+  const [pokemonType, setPokemonType] = useState('all');
 
   const { searchTerm } = useSelector(mapState);
-
-
 
   const getAllPokemons = async () => {
     const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=500'; // limit=1118 to fetch all of them
@@ -77,8 +80,18 @@ const PokemonList = () => {
     getPokemons();
   }, []);
 
+  const handleSelect = (e) => {
+    setPokemonType(e.target.value);
+  };
 
 
+
+  const configSelectInput = {
+    value: pokemonType,
+    label: 'Choose Pokemon Type',
+    options: pokemonTypes,
+    handleChange: handleSelect,
+  };
 
   return (
     <>
@@ -88,6 +101,7 @@ const PokemonList = () => {
         size={150}
         css={loaderCSS}
       />
+      <FormSelect {...configSelectInput} style={{marginLeft: '4.9rem'}}/>
       <div className="wrapper">
         <div className="pokemon__wrapper">
           <div className="pokemonList__wrapper">
@@ -98,6 +112,12 @@ const PokemonList = () => {
                 } else if (
                   value.name.toLowerCase().includes(searchTerm.toLowerCase())
                 ) {
+                  return value;
+                }
+              }).filter((value) => {
+                if (pokemonType === 'all') {
+                  return value;
+                } else if (pokemonType === value.types[0].type.name) {
                   return value;
                 }
               })
