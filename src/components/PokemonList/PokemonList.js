@@ -5,7 +5,9 @@ import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { pokemonTypes } from '../../data';
-import { sortArray } from '../Utils/Utils';
+import { sortArray } from '../../Utils/Utils';
+
+import { getPokemons } from '../../redux/Pokemons/pokemonActions'; // dispatch get pokemons action, pass data as payload, and display it from redux instead of a local state
 
 // components
 import Button from './../Button/Button';
@@ -48,7 +50,7 @@ const PokemonList = () => {
         const res = await fetch(`${baseUrl}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
-        await pokemonList.sort((a, b) => a.id - b.id);
+        await sortArray(pokemonList)
       });
     };
     configAllPokemons(data.results);
