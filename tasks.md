@@ -14,9 +14,9 @@ placeholder. Plus je neki slider, galeriju ili slično za prikaz više slika -->
 pokemona istog tipa u modalu -->
 
 6. Prilikom refresha stranice ostati na istom viewu
-
+<!-- 
 7. Plus je na glavnu stranicu dodati filter po type ili ability, te prikazati samo
-odabrane pokemone
+odabrane pokemone -->
 
 <!-- 8. Dodati search box po imenu pokemona. -->
 
