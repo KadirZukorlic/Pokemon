@@ -1,5 +1,5 @@
 const pokemonTypes = {
-    GET_POKEMONS: 'GET_POKEMONS',
+    SET_POKEMONS: 'SET_POKEMONS',
 }
 
 export default pokemonTypes;

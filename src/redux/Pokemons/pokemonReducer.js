@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 const pokemonReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case(pokemonTypes.GET_POKEMONS): 
+    case(pokemonTypes.SET_POKEMONS): 
     return {
         ...state,
         pokemonList: action.payload

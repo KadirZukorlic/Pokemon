@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 import { pokemonTypes } from '../../data';
 import { sortArray } from '../../Utils/Utils';
 
-import { getPokemons } from '../../redux/Pokemons/pokemonActions'; // dispatch get pokemons action, pass data as payload, and display it from redux instead of a local state
-
 // components
 import Button from './../Button/Button';
 import PokemonThumbnail from '../PokemonThumbnail/PokemonThumbnail';
@@ -23,7 +21,7 @@ const loaderCSS = css`
   transform: translate(-50%, -50%);
 `;
 
-const mapState = ({ search }) => ({
+const mapState = ({ search,  }) => ({
   searchTerm: search.searchTerm,
 });
 
@@ -50,18 +48,21 @@ const PokemonList = () => {
         const res = await fetch(`${baseUrl}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
-        await sortArray(pokemonList)
+        await sortArray(pokemonList);
       });
     };
     configAllPokemons(data.results);
     setIsLoading(false);
   };
 
+  // console.log(pokemonListRedux, 'redux state');
+  // console.log(pokemonList, 'local state');
+
   // error handle with try catch
 
   const getPokemons = async () => {
     setIsLoading(true);
-
+    
     const res = await fetch(loadMore);
     const data = await res.json();
 
@@ -72,8 +73,11 @@ const PokemonList = () => {
         const res = await fetch(`${baseUrl}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
+
+        console.log(results, 'res')
+
         // await pokemonList.sort((a, b) => a.id - b.id);
-        await sortArray(pokemonList)
+        await sortArray(pokemonList);
       });
     };
     configPokemonObject(data.results);
@@ -88,8 +92,6 @@ const PokemonList = () => {
     setPokemonType(e.target.value);
   };
 
-
-
   const configSelectInput = {
     value: pokemonType,
     label: 'Choose Pokemon Type',
@@ -98,6 +100,7 @@ const PokemonList = () => {
   };
 
   return (
+    
     <>
       <BounceLoader
         color={spinnerColor}
@@ -105,10 +108,10 @@ const PokemonList = () => {
         size={150}
         css={loaderCSS}
       />
-      <FormSelect {...configSelectInput} style={{marginLeft: '4.9rem'}}/>
-      <div className="wrapper">
-        <div className="pokemon__wrapper">
-          <div className="pokemonList__wrapper">
+      <FormSelect {...configSelectInput} style={{ marginLeft: '4.9rem' }} />
+      <div className='wrapper'>
+        <div className='pokemon__wrapper'>
+          <div className='pokemonList__wrapper'>
             {pokemonList
               .filter((value) => {
                 if (searchTerm === '') {
@@ -118,7 +121,8 @@ const PokemonList = () => {
                 ) {
                   return value;
                 }
-              }).filter((value) => {
+              })
+              .filter((value) => {
                 if (pokemonType === 'all') {
                   return value;
                 } else if (pokemonType === value.types[0].type.name) {
@@ -137,7 +141,7 @@ const PokemonList = () => {
               ))}
           </div>
         </div>
-        <div className="buttons">
+        <div className='buttons'>
           <Button onClick={() => getPokemons()}>Load more</Button>
           <Button onClick={() => getAllPokemons()}>Get All Pokemons</Button>
         </div>

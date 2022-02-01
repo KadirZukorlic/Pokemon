@@ -9,6 +9,7 @@ const Modal = ({ hideModal, toggleModal, children }) => {
     <div className="modalWrap">
       <div className="modal">
         {children}
+        <div className="close" onClick={() => toggleModal()}>X</div>
       </div>
     </div>
   ];

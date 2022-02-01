@@ -30,4 +30,12 @@
       max-height: 95vh;
       overflow: auto;
     }
+
+    .close {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.4rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
   }
