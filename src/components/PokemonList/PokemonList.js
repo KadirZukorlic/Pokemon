@@ -55,10 +55,7 @@ const PokemonList = () => {
     setIsLoading(false);
   };
 
-  // console.log(pokemonListRedux, 'redux state');
-  // console.log(pokemonList, 'local state');
-
-  // error handle with try catch
+  // tried config
 
   const getPokemons = async () => {
     setIsLoading(true);
