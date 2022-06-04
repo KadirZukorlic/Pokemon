@@ -60,6 +60,8 @@ const PokemonDetails = () => {
     pokemonType: type,
   };
 
+  console.log(pokemon)
+
   return (
     <>
       <Modal {...configModal}>

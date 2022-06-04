@@ -7,6 +7,8 @@ import PokemonDetails from './components/PokemonDetails/PokemonDetails';
 
 import './default.scss';
 
+// TODO: Use react-helmet and pokeball icon
+
 function App() {
   return (
     <BrowserRouter>

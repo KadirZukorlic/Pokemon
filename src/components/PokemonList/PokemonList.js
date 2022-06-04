@@ -73,9 +73,6 @@ const PokemonList = () => {
         const res = await fetch(`${baseUrl}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
-
-        console.log(results, 'res')
-
         // await pokemonList.sort((a, b) => a.id - b.id);
         await sortArray(pokemonList);
       });
