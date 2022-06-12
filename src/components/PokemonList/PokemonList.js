@@ -23,12 +23,13 @@ const mapState = ({ search, pokemonList }) => ({
 
 // TODO: Save pokemon data on refresh with redux persist
 
+const BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
+const SPINNER_COLOR = '#3b4cca';
+
 const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
-  const [baseUrl] = useState('https://pokeapi.co/api/v2/pokemon');
-  const [loadMore, setLoadMore] = useState(baseUrl);
+  const [loadMore, setLoadMore] = useState(BASE_URL);
   const [isLoading, setIsLoading] = useState(false);
-  const [spinnerColor] = useState('#3b4cca');
   const [pokemonType, setPokemonType] = useState('all');
 
   const { searchTerm, pokemons } = useSelector(mapState);
@@ -44,7 +45,7 @@ const PokemonList = () => {
 
     const configAllPokemons = (results) => {
       results.forEach(async (pokemon) => {
-        const res = await fetch(`${baseUrl}/${pokemon.name}`);
+        const res = await fetch(`${BASE_URL}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
         await sortArray(pokemonList);
@@ -58,7 +59,6 @@ const PokemonList = () => {
 
   const getPokemons = async () => {
     setIsLoading(true);
-    setPokemons({ name: 'POKEMON', ID: '1' });
 
     const res = await fetch(loadMore);
     const data = await res.json();
@@ -67,23 +67,15 @@ const PokemonList = () => {
 
     const configPokemonObject = (results) => {
       results.forEach(async (pokemon) => {
-        const res = await fetch(`${baseUrl}/${pokemon.name}`);
+        const res = await fetch(`${BASE_URL}/${pokemon.name}`);
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
-        // await pokemonList.sort((a, b) => a.id - b.id);
         sortArray(pokemonList);
       });
     };
     configPokemonObject(data.results);
-    console.log(setPokemons(data.results));
-
-    console.log(data.results, '----------- DATA RESULTS');
-    console.log(pokemonList, '---------------POKEMON LIST LOCAL STATE');
-    console.log(pokemons, 'POKEMONS REDUX---------------');
     setIsLoading(false);
   };
-
-  // console.log(setPokemons(pokemonList));
 
   useEffect(() => {
     getPokemons();
@@ -107,7 +99,7 @@ const PokemonList = () => {
   return (
     <>
       <BounceLoader
-        color={spinnerColor}
+        color={SPINNER_COLOR}
         loading={isLoading}
         size={150}
         css={loaderCSS}
