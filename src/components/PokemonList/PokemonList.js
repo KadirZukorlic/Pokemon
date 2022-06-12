@@ -21,16 +21,16 @@ const loaderCSS = css`
   transform: translate(-50%, -50%);
 `;
 
-const mapState = ({ search,  }) => ({
+const mapState = ({ search }) => ({
   searchTerm: search.searchTerm,
 });
 
 const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
-  const [baseUrl, setBaseUrl] = useState('https://pokeapi.co/api/v2/pokemon');
+  const [baseUrl] = useState('https://pokeapi.co/api/v2/pokemon');
   const [loadMore, setLoadMore] = useState(baseUrl);
   const [isLoading, setIsLoading] = useState(false);
-  const [spinnerColor, setSpinnerColor] = useState('#3b4cca');
+  const [spinnerColor] = useState('#3b4cca');
   const [pokemonType, setPokemonType] = useState('all');
 
   const { searchTerm } = useSelector(mapState);
@@ -59,7 +59,7 @@ const PokemonList = () => {
 
   const getPokemons = async () => {
     setIsLoading(true);
-    
+
     const res = await fetch(loadMore);
     const data = await res.json();
 
@@ -94,7 +94,6 @@ const PokemonList = () => {
   };
 
   return (
-    
     <>
       <BounceLoader
         color={spinnerColor}
@@ -103,9 +102,9 @@ const PokemonList = () => {
         css={loaderCSS}
       />
       <FormSelect {...configSelectInput} style={{ marginLeft: '4.9rem' }} />
-      <div className='wrapper'>
-        <div className='pokemon__wrapper'>
-          <div className='pokemonList__wrapper'>
+      <div className="wrapper">
+        <div className="pokemon__wrapper">
+          <div className="pokemonList__wrapper">
             {pokemonList
               .filter((value) => {
                 if (searchTerm === '') {
@@ -135,7 +134,7 @@ const PokemonList = () => {
               ))}
           </div>
         </div>
-        <div className='buttons'>
+        <div className="buttons">
           <Button onClick={() => getPokemons()}>Load more</Button>
           <Button onClick={() => getAllPokemons()}>Get All Pokemons</Button>
         </div>
