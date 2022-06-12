@@ -1,11 +1,13 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BounceLoader } from 'react-spinners';
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { pokemonTypes } from '../../data';
 import { sortArray } from '../../Utils/Utils';
+import { setPokemons } from '../../redux/Pokemons/pokemonActions';
 
 // components
 import Button from './../Button/Button';
@@ -14,15 +16,9 @@ import FormSelect from '../FormSelect/SelectInput';
 
 import './styles.scss';
 
-const loaderCSS = css`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const mapState = ({ search }) => ({
+const mapState = ({ search, pokemonList }) => ({
   searchTerm: search.searchTerm,
+  pokemons: pokemonList.pokemonList,
 });
 
 const PokemonList = () => {
@@ -33,7 +29,8 @@ const PokemonList = () => {
   const [spinnerColor] = useState('#3b4cca');
   const [pokemonType, setPokemonType] = useState('all');
 
-  const { searchTerm } = useSelector(mapState);
+  const { searchTerm, pokemons } = useSelector(mapState);
+  const dispatch = useDispatch();
 
   const getAllPokemons = async () => {
     const url = 'https://pokeapi.co/api/v2/pokemon?offset=300&limit=500'; // limit=1118 to fetch all of them
@@ -59,6 +56,7 @@ const PokemonList = () => {
 
   const getPokemons = async () => {
     setIsLoading(true);
+    setPokemons({ name: 'POKEMON', ID: '1' });
 
     const res = await fetch(loadMore);
     const data = await res.json();
@@ -71,16 +69,27 @@ const PokemonList = () => {
         const data = await res.json();
         setPokemonList((prevPokemons) => [...prevPokemons, data]);
         // await pokemonList.sort((a, b) => a.id - b.id);
-        await sortArray(pokemonList);
+        sortArray(pokemonList);
       });
     };
     configPokemonObject(data.results);
+    console.log(setPokemons(data.results));
+
+    console.log(data.results, '----------- DATA RESULTS');
+    console.log(pokemonList, '---------------POKEMON LIST LOCAL STATE');
+    console.log(pokemons, 'POKEMONS REDUX---------------');
     setIsLoading(false);
   };
+
+  // console.log(setPokemons(pokemonList));
 
   useEffect(() => {
     getPokemons();
   }, []);
+
+  useEffect(() => {
+    dispatch(setPokemons(pokemonList));
+  }, [pokemonList]);
 
   const handleSelect = (e) => {
     setPokemonType(e.target.value);
@@ -105,7 +114,7 @@ const PokemonList = () => {
       <div className="wrapper">
         <div className="pokemon__wrapper">
           <div className="pokemonList__wrapper">
-            {pokemonList
+            {pokemons
               .filter((value) => {
                 if (searchTerm === '') {
                   return value;
@@ -143,3 +152,10 @@ const PokemonList = () => {
   );
 };
 export default PokemonList;
+
+const loaderCSS = css`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
