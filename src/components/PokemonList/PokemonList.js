@@ -21,6 +21,8 @@ const mapState = ({ search, pokemonList }) => ({
   pokemons: pokemonList.pokemonList,
 });
 
+// TODO: Save pokemon data on refresh with redux persist
+
 const PokemonList = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [baseUrl] = useState('https://pokeapi.co/api/v2/pokemon');
